@@ -138,3 +138,14 @@ WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
 	      AND (de.to_date = '9999-01-01')
 		  AND (d.dept_no = 'd007')
 		  OR (d.dept_no = 'd005');
+
+SELECT e.emp_no, e.first_name, e.last_name, t.title, t.from_date, t.to_date
+INTO retirement_titles2
+FROM employees as e
+INNER JOIN titles as t
+ON (t.emp_no = e.emp_no)
+WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
+	      AND (t.to_date = '9999-01-01')
+GROUP BY e.emp_no, t.title, t.from_date, t.to_date
+ORDER BY e.emp_no ASC;
+SELECT * FROM retirement_titles2
